@@ -1,5 +1,5 @@
 import serial
-
+import datetime as dt
 
 def _fmt(byte_str):
     """ This will format raw bytes into a string of space-delimited hex. """
@@ -135,7 +135,7 @@ class Station(object):
             cnt = part.count(b'=')
             if cnt == 0:
                 # skip the leading identifier 0R0/0R1
-                continue
+                parsed['type'] = part.decode()
             elif cnt == 1:
                 abbr, vstr = part.split(b'=')
                 if abbr == b'Id':  # skip the information field
@@ -156,6 +156,8 @@ class Station(object):
                     print("unknown sensor %s: %s" % (abbr, vstr))
             else:
                 print("skip observation: '%s'" % part)
+
+        parsed['datetime'] = dt.datetime.now()
         return parsed
 
 
