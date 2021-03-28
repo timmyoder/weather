@@ -166,4 +166,5 @@ if __name__ == '__main__':
         while True:
             data = h.get_composite().strip()
             parsed = Station.parse(data)
-            print("%s" % parsed)
+            if len(parsed) > 0:
+                print("%s" % parsed)
