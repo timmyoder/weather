@@ -135,7 +135,7 @@ class Station(object):
             cnt = part.count(b'=')
             if cnt == 0:
                 # skip the leading identifier 0R0/0R1
-                parsed['type'] = part.decode()
+                parsed['type'] = part
             elif cnt == 1:
                 abbr, vstr = part.split(b'=')
                 if abbr == b'Id':  # skip the information field
@@ -168,5 +168,5 @@ if __name__ == '__main__':
         while True:
             data = h.get_composite().strip()
             parsed = Station.parse(data)
-            if len(parsed) > 0:
+            if len(parsed) > 2:
                 print("%s" % parsed)
